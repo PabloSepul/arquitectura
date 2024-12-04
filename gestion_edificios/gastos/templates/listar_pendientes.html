@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Gastos Comunes Pendientes</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Gastos Comunes Pendientes</h1>
+    <form method="GET" action="">
+        {% csrf_token %}
+        <label for="mes">Mes (hasta):</label>
+        <input type="number" id="mes" name="mes" min="1" max="12" required>
+        <br><br>
+        <label for="año">Año (hasta):</label>
+        <input type="number" id="año" name="año" min="2000" max="2100" required>
+        <br><br>
+        <button type="submit">Buscar Pendientes</button>
+    </form>
+    {% if pendientes %}
+        <h2>Resultados:</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Departamento</th>
+                    <th>Mes</th>
+                    <th>Año</th>
+                    <th>Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pendiente in pendientes %}
+                    <tr>
+                        <td>{{ pendiente.departamento }}</td>
+                        <td>{{ pendiente.mes }}</td>
+                        <td>{{ pendiente.año }}</td>
+                        <td>${{ pendiente.monto }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif mensaje %}
+        <p><strong>{{ mensaje }}</strong></p>
+    {% endif %}
+    <p>
+        <a href="/">Volver a la página principal</a>
+    </p>
+</body>
+</html>

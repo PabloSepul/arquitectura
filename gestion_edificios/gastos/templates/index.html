@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Gestión de Gastos Comunes</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Gestión de Gastos Comunes</h1>
+    <form method="POST" action="/api/departamentos/">
+        {% csrf_token %}
+        <input type="text" name="numero" placeholder="Número de Departamento">
+        <button type="submit">Registrar Departamento</button>
+    </form>
+</body>
+</html>

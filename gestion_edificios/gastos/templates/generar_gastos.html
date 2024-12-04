@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Generar Gastos Comunes</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Generar Gastos Comunes</h1>
+    <form id="gastosForm" method="POST" action="">
+        {% csrf_token %}
+        <label for="mes">Mes:</label>
+        <input type="number" id="mes" name="mes" min="1" max="12" required>
+        <br><br>
+        <label for="año">Año:</label>
+        <input type="number" id="año" name="año" min="2000" max="2100" required>
+        <br><br>
+        <label for="monto_base">Monto Base (opcional, por defecto: 50.000):</label>
+        <input type="number" id="monto_base" name="monto_base">
+        <br><br>
+        <button type="submit">Generar Gastos</button>
+    </form>
+    {% if mensaje %}
+        <p><strong>{{ mensaje }}</strong></p>
+    {% endif %}
+    <p>
+        <a href="/">Volver a la página principal</a>
+    </p>
+
+    <script>
+        document.getElementById('gastosForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const mes = document.getElementById('mes').value;
+            const año = document.getElementById('año').value;
+            let montoBase = document.getElementById('monto_base').value;
+            if (!montoBase) {
+                montoBase = 50000;
+            }
+            const confirmacion = confirm(
+                `Estás a punto de generar gastos comunes para:\n\n` +
+                `- Mes: ${mes}\n` +
+                `- Año: ${año}\n` +
+                `- Monto base: $${montoBase}\n\n` +
+                `¿Deseas continuar?`
+            );
+            if (confirmacion) {
+                this.submit();
+            }
+        });
+    </script>
+</body>
+</html>

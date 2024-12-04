@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Registrar Departamento</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Registrar un Departamento</h1>
+    {% if mensaje %}
+        <p><strong>{{ mensaje }}</strong></p>
+    {% endif %}
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label for="numero">Número del Departamento:</label>
+        <input type="text" id="numero" name="numero" required>
+        <button type="submit">Registrar</button>
+    </form>
+    <h2>Departamentos Registrados actualmente</h2>
+    {% if departamentos %}
+        <ul>
+            {% for departamento in departamentos %}
+                <li>Departamento {{ departamento.numero }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay departamentos registrados actualmente.</p>
+    {% endif %}
+
+    <p>
+        <a href="/">Volver a la página principal</a>
+    </p>
+</body>
+</html>

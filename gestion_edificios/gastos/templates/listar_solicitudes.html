@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Listar Solicitudes</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Lista de Solicitudes</h1>
+
+    {% if solicitudes %}
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Departamento</th>
+                <th>Descripción</th>
+                <th>Fecha de Solicitud</th>
+                <th>Estado</th>
+            </tr>
+            {% for solicitud in solicitudes %}
+                <tr>
+                    <td>{{ solicitud.id }}</td>
+                    <td>Departamento {{ solicitud.departamento.numero }}</td>
+                    <td>{{ solicitud.descripcion }}</td>
+                    <td>{{ solicitud.fecha_solicitud }}</td>
+                    <td>{{ solicitud.estado }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No hay solicitudes registradas.</p>
+    {% endif %}
+
+    <p><a href="/">Volver a la página principal</a></p>
+</body>
+</html>

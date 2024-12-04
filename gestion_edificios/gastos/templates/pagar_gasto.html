@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Pagar Gasto Común</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Pagar Gasto Común</h1>
+
+        <form method="POST" action="" class="form-search">
+            {% csrf_token %}
+            <label for="departamento">Número del Departamento:</label>
+            <input type="text" id="departamento" name="departamento" placeholder="Ejemplo: 101" required>
+            <button type="submit" class="btn">Buscar Gastos Pendientes</button>
+        </form>
+
+        {% if mensaje %}
+            <p class="message"><strong>{{ mensaje }}</strong></p>
+        {% endif %}
+
+        {% if gastos_pendientes %}
+            <h2>Gastos Pendientes</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Año</th>
+                        <th>Monto</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for gasto in gastos_pendientes %}
+                        <tr>
+                            <td>{{ gasto.mes }}</td>
+                            <td>{{ gasto.año }}</td>
+                            <td>${{ gasto.monto }}</td>
+                            <td>
+                                <form method="POST" action="" class="form-pay">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="gasto_id" value="{{ gasto.id }}">
+                                    <button type="submit" name="pagar" class="btn-pay">Pagar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        <p>
+            <a href="/">Volver a la página principal</a>
+        </p>
+    </div>
+
+    <style>
+        h1, h2 {
+            color: #333;
+        }
+        .form-search, .form-pay {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .table th {
+            background-color: #f2f2f2;
+        }
+        .message {
+            color: #ff0000;
+            margin-top: 20px;
+        }
+    </style>
+</body>
+</html>

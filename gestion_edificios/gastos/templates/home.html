@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Gestión de Edificios</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Gestión de Edificios</h1>
+        <p>Selecciona una opción:</p>
+        <div class="button-grid">
+            <a href="/registrar_departamento/">
+                <button>Registrar Departamento</button>
+            </a>
+            <a href="/generar_gastos/">
+                <button>Generar Gastos Comunes</button>
+            </a>
+            <a href="/pagar_gasto/">
+                <button>Pagar Gastos Comunes</button>
+            </a>
+            <a href="/listar_pendientes/">
+                <button>Listar Gastos Pendientes</button>
+            </a>
+        </div>
+    </div>
+    <footer>
+        © 2024 Gestión de Edificios
+    </footer>
+</body>
+</html>
